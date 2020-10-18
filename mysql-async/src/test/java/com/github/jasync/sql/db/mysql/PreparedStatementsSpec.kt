@@ -7,15 +7,15 @@ import com.github.jasync.sql.db.util.map
 import java.math.BigDecimal
 import java.sql.Timestamp
 import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.function.Supplier
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import org.assertj.core.api.Assertions.assertThat
-import java.time.LocalDateTime
 import org.junit.Test
 import org.slf4j.MDC
-import java.time.LocalDate
 
 class PreparedStatementsSpec : ConnectionHelper() {
 

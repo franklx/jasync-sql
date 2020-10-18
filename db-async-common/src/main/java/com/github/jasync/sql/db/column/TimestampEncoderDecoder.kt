@@ -2,12 +2,13 @@ package com.github.jasync.sql.db.column
 
 import com.github.jasync.sql.db.exceptions.DateEncoderNotAvailableException
 import java.sql.Timestamp
-import java.util.Calendar
-import java.util.Date
 import java.time.LocalDateTime
 import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.TemporalAccessor
+import java.util.Calendar
+import java.util.Date
 
 open class TimestampEncoderDecoder : ColumnEncoderDecoder {
     companion object {
@@ -40,9 +41,9 @@ open class TimestampEncoderDecoder : ColumnEncoderDecoder {
 
     override fun encode(value: Any): String {
         return when (value) {
-            is Timestamp -> value.toLocalDateTime().format(this.timezonedPrinter)
-            is Date -> LocalDateTime.ofInstant(value.toInstant(), ZoneOffset.UTC).format(this.timezonedPrinter)
-            is Calendar -> LocalDateTime.ofInstant(value.toInstant(), ZoneOffset.UTC).format(this.timezonedPrinter)
+            is Timestamp -> ZonedDateTime.ofInstant(value.toInstant(), ZoneOffset.UTC).format(this.timezonedPrinter)
+            is Date -> ZonedDateTime.ofInstant(value.toInstant(), ZoneOffset.UTC).format(this.timezonedPrinter)
+            is Calendar -> ZonedDateTime.ofInstant(value.toInstant(), ZoneOffset.UTC).format(this.timezonedPrinter)
             is LocalDateTime -> value.format(this.nonTimezonedPrinter)
             is TemporalAccessor -> this.timezonedPrinter.format(value)
             else -> throw DateEncoderNotAvailableException(value)

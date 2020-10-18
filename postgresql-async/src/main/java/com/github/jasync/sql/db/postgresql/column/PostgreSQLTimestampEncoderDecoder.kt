@@ -8,18 +8,19 @@ import com.github.jasync.sql.db.util.XXX
 import io.netty.buffer.ByteBuf
 import java.nio.charset.Charset
 import java.sql.Timestamp
+import java.time.LocalDate
 import java.util.Calendar
 import java.util.Date
-import org.joda.time.DateTime
 import java.time.LocalDateTime
-import org.joda.time.ReadableDateTime
-import org.joda.time.format.DateTimeFormatter
-import org.joda.time.format.DateTimeFormatterBuilder
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.temporal.TemporalAccessor
 
 object PostgreSQLTimestampEncoderDecoder : ColumnEncoderDecoder {
 
     private val optionalTimeZone = DateTimeFormatterBuilder()
-        .appendPattern("Z").toParser()
+        .appendPattern("Z").toFormatter()
 
     private val internalFormatters: List<DateTimeFormatter> = (1..6).map { index ->
         DateTimeFormatterBuilder()
@@ -46,16 +47,16 @@ object PostgreSQLTimestampEncoderDecoder : ColumnEncoderDecoder {
 
         return when (columnType.dataType) {
             ColumnTypes.Timestamp, ColumnTypes.TimestampArray -> {
-                selectFormatter(text).parseLocalDateTime(text)
+                selectFormatter(text).parse(text)
             }
             ColumnTypes.TimestampWithTimezoneArray -> {
-                selectFormatter(text).parseDateTime(text)
+                selectFormatter(text).parse(text)
             }
             ColumnTypes.TimestampWithTimezone -> {
                 if (columnType.dataTypeModifier > 0) {
-                    internalFormatters[columnType.dataTypeModifier - 1].parseDateTime(text)
+                    internalFormatters[columnType.dataTypeModifier - 1].parse(text)
                 } else {
-                    selectFormatter(text).parseDateTime(text)
+                    selectFormatter(text).parse(text)
                 }
             }
             else -> XXX("should treat ${columnType.dataType}")
@@ -75,11 +76,11 @@ object PostgreSQLTimestampEncoderDecoder : ColumnEncoderDecoder {
 
     override fun encode(value: Any): String {
         return when (value) {
-            is Timestamp -> this.formatter().print(DateTime(value))
-            is Date -> this.formatter().print(DateTime(value))
-            is Calendar -> this.formatter().print(DateTime(value))
-            is LocalDateTime -> this.formatter().print(value)
-            is ReadableDateTime -> this.formatter().print(value)
+            is Timestamp -> value.toLocalDateTime().format(this.formatter())
+            is Date -> LocalDateTime.ofInstant(value.toInstant(), ZoneOffset.UTC).format(this.formatter())
+            is Calendar -> LocalDateTime.ofInstant(value.toInstant(), ZoneOffset.UTC).format(this.formatter())
+            is LocalDateTime -> this.formatter().format(value)
+            is TemporalAccessor -> this.formatter().format(value)
             else -> throw DateEncoderNotAvailableException(value)
         }
     }

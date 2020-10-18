@@ -12,13 +12,13 @@ import com.github.jasync.sql.db.util.map
 import io.netty.util.CharsetUtil
 import java.math.BigDecimal
 import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.concurrent.ExecutionException
 import java.util.function.Supplier
 import org.assertj.core.api.Assertions.assertThat
-import java.time.LocalDateTime
 import org.junit.Test
 import org.slf4j.MDC
-import java.time.LocalDate
 
 class QuerySpec : ConnectionHelper() {
 

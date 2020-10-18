@@ -1,8 +1,8 @@
 package com.github.jasync.sql.db.mysql.binary.decoder
 
 import io.netty.buffer.ByteBuf
-import mu.KotlinLogging
 import java.time.LocalDateTime
+import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
 
@@ -12,36 +12,27 @@ object TimestampDecoder : BinaryDecoder {
 
         return when (size) {
             0.toShort() -> null
-            4.toShort() -> LocalDateTime()
-                .withDate(
+            4.toShort() -> LocalDateTime.of(
+                buffer.readUnsignedShort(),
+                buffer.readUnsignedByte().toInt(),
+                buffer.readUnsignedByte().toInt(),
+                0, 0)
+            7.toShort() -> LocalDateTime.of(
                     buffer.readUnsignedShort(),
+                    buffer.readUnsignedByte().toInt(),
+                    buffer.readUnsignedByte().toInt(),
+                    buffer.readUnsignedByte().toInt(),
                     buffer.readUnsignedByte().toInt(),
                     buffer.readUnsignedByte().toInt()
                 )
-                .withTime(0, 0, 0, 0)
-            7.toShort() -> LocalDateTime()
-                .withDate(
+            11.toShort() -> LocalDateTime.of(
                     buffer.readUnsignedShort(),
                     buffer.readUnsignedByte().toInt(),
-                    buffer.readUnsignedByte().toInt()
-                )
-                .withTime(
                     buffer.readUnsignedByte().toInt(),
                     buffer.readUnsignedByte().toInt(),
                     buffer.readUnsignedByte().toInt(),
-                    0
-                )
-            11.toShort() -> LocalDateTime()
-                .withDate(
-                    buffer.readUnsignedShort(),
                     buffer.readUnsignedByte().toInt(),
-                    buffer.readUnsignedByte().toInt()
-                )
-                .withTime(
-                    buffer.readUnsignedByte().toInt(),
-                    buffer.readUnsignedByte().toInt(),
-                    buffer.readUnsignedByte().toInt(),
-                    buffer.readUnsignedInt().toInt() / 1000
+                    buffer.readUnsignedInt().toInt()
                 )
             else -> {
                 logger.warn { "unknown decoded size $size" }

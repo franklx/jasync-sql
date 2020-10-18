@@ -358,7 +358,7 @@ class PostgreSQLConnectionSpec : DatabaseTestHelper() {
 
         withHandler { handler ->
             executePreparedStatement(handler, "CREATE TEMP TABLE test(t TIMESTAMP)")
-            val date1 = LocalDateTime()
+            val date1 = LocalDateTime.now()
             executePreparedStatement(handler, "INSERT INTO test(t) VALUES(?)", listOf(date1))
             val result = executePreparedStatement(handler, "SELECT t FROM test")
             val date2 = (result.rows.head)(0)

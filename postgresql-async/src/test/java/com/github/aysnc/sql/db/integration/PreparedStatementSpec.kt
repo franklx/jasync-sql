@@ -10,6 +10,7 @@ import com.github.jasync.sql.db.invoke
 import com.github.jasync.sql.db.postgresql.exceptions.GenericDatabaseException
 import com.github.jasync.sql.db.util.length
 import com.github.jasync.sql.db.util.map
+import java.time.LocalDate
 import java.util.UUID
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
@@ -17,7 +18,6 @@ import java.util.function.Supplier
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.slf4j.MDC
-import java.time.LocalDate
 
 class PreparedStatementSpec : DatabaseTestHelper() {
 

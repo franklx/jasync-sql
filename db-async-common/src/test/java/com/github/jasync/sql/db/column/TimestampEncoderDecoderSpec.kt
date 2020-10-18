@@ -1,18 +1,18 @@
 package com.github.jasync.sql.db.column
 
-import java.sql.Timestamp
-import kotlin.test.assertEquals
-import org.junit.Test
 import java.sql.Date
-import java.time.ZoneId
+import java.sql.Timestamp
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatterBuilder
-import java.util.*
+import java.util.Calendar
+import kotlin.test.assertEquals
+import org.junit.Test
 
 class TimestampEncoderDecoderSpec {
 
     val encoder = TimestampEncoderDecoder()
-    val dateTime = ZonedDateTime.of(2013, 12, 27, 8, 40, 50, 800 * 1000000, ZoneId.systemDefault())
+    val dateTime = ZonedDateTime.of(2013, 12, 27, 8, 40, 50, 800 * 1000000, ZoneOffset.UTC)
 
     val result = "2013-12-27 08:40:50.800000"
     val formatter = DateTimeFormatterBuilder().appendPattern("Z").toFormatter()

@@ -29,7 +29,7 @@ object LocalTimeEncoder : BinaryEncoder {
         buffer.writeByte(time.second)
 
         if (hasNanos) {
-            buffer.writeInt(time.nano)
+            buffer.writeInt(time.nano / 1000)
         }
     }
 
