@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
 import java.util.function.Supplier
 import org.assertj.core.api.Assertions.assertThat
-import org.joda.time.LocalDateTime
+import java.time.LocalDateTime
 import org.junit.Test
 import org.slf4j.MDC
 

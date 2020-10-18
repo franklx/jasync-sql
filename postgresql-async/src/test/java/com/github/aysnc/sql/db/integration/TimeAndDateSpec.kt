@@ -5,12 +5,7 @@ import com.github.jasync.sql.db.util.head
 import com.github.jasync.sql.db.util.length
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.data.Offset
-import org.joda.time.DateTime
-import org.joda.time.DateTimeZone
-import org.joda.time.LocalDate
-import org.joda.time.LocalDateTime
-import org.joda.time.LocalTime
-import org.joda.time.Period
+import java.time.LocalDateTime
 import org.junit.Ignore
 import org.junit.Test
 

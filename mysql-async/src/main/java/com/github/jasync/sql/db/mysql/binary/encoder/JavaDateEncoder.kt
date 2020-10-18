@@ -2,7 +2,7 @@ package com.github.jasync.sql.db.mysql.binary.encoder
 
 import com.github.jasync.sql.db.mysql.column.ColumnTypes
 import io.netty.buffer.ByteBuf
-import org.joda.time.LocalDateTime
+import java.time.LocalDateTime
 
 object JavaDateEncoder : BinaryEncoder {
     override fun encode(value: Any, buffer: ByteBuf) {

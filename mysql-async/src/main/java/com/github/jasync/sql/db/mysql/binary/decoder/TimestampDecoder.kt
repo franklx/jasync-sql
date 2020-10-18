@@ -2,7 +2,7 @@ package com.github.jasync.sql.db.mysql.binary.decoder
 
 import io.netty.buffer.ByteBuf
 import mu.KotlinLogging
-import org.joda.time.LocalDateTime
+import java.time.LocalDateTime
 
 private val logger = KotlinLogging.logger {}
 

@@ -80,11 +80,6 @@ class JasyncRow(private val rowData: RowData) : Row {
             is Int -> rowData[identifier]
             else -> throw IllegalArgumentException("Identifier must be a String or an Integer")
         }
-        return when (value) {
-            is org.joda.time.LocalDateTime -> value.jodaToJavaLocalDateTime()
-            is org.joda.time.LocalDate -> value.jodaToJavaLocalDate()
-            is org.joda.time.LocalTime -> value.jodaToJavaLocalTime()
-            else -> value
-        }
+        return value
     }
 }

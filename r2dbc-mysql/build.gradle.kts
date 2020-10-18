@@ -1,8 +1,6 @@
 val KOTLIN_VERSION: String by project
 val KOTLIN_COROUTINES_VERSION: String by project
 val SL4J_VERSION: String by project
-val JODA_VERSION: String by project
-val JODA_CONVERT_VERSION: String by project
 val NETTY_VERSION: String by project
 val KOTLIN_LOGGING_VERSION: String by project
 val R2DBC_SPI_VERSION: String by project
@@ -32,8 +30,6 @@ dependencies {
     compile("io.r2dbc:r2dbc-spi:$R2DBC_SPI_VERSION")
     implementation("io.projectreactor:reactor-core:$REACTOR_CORE_VERSION")
     compile("org.slf4j:slf4j-api:$SL4J_VERSION")
-    compile("joda-time:joda-time:$JODA_VERSION")
-    compile("org.joda:joda-convert:$JODA_CONVERT_VERSION")
     compile("io.netty:netty-transport:$NETTY_VERSION")
     compile("io.netty:netty-handler:$NETTY_VERSION")
     compile("io.github.microutils:kotlin-logging:$KOTLIN_LOGGING_VERSION")
